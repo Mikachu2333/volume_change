@@ -1,0 +1,27 @@
+import win.ui
+import sys.audioVolume
+/*DSG{{*/
+mainForm = win.form(cls="AU_Adjust_FORM";text='\u2191\u2193';right=91;bottom=151;border="thin";clipch=1;exmode="toolwindow";topmost=1)
+mainForm.add(
+down={cls="button";text='\u2193';left=12;top=100;right=80;bottom=144;font=LOGFONT(h=-24;name='梦源黑体 CN W9';weight=420);z=2};
+static={cls="static";left=12;top=64;right=80;bottom=92;align="center";border=1;center=1;font=LOGFONT(h=-18;name='梦源黑体 CN W9';weight=420);notify=1;transparent=1;z=3};
+up={cls="button";text='\u2191';left=12;top=8;right=80;bottom=56;font=LOGFONT(h=-24;name='梦源黑体 CN W9';weight=420);z=1}
+)
+/*}}*/
+
+mainForm.static.text = sys.audioVolume().volume
+
+mainForm.up.oncommand = function(id,event){
+	var peakvalue = sys.audioVolume().volume
+	sys.audioVolume().volume = peakvalue + 1
+	mainForm.static.text = sys.audioVolume().volume
+}
+
+mainForm.down.oncommand = function(id,event){
+	var peakvalue = sys.audioVolume().volume
+	sys.audioVolume().volume = peakvalue - 1
+	mainForm.static.text = sys.audioVolume().volume
+}
+
+mainForm.show();
+return win.loopMessage();
